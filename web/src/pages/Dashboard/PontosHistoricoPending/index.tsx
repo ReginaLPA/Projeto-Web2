@@ -43,7 +43,7 @@ function PontosHistoricosPendentes() {
                         {pontoHistoricos.map(pontoHistorico => (
                             <div key={pontoHistorico.id} className="pontoHistorico-container">
                             <MapContainer
-                                center={[pontoHistorico.latitude, pontoHistorico.longitude]}
+                                center={[-22.9006421,-47.0972342]}
                                 zoom={16}
                                 style={{width: '100%', height: 200}}
                                 dragging={false}
@@ -52,6 +52,7 @@ function PontosHistoricosPendentes() {
                                 scrollWheelZoom={false}
                                 doubleClickZoom={false}
                             >
+                                <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                                 <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
 
                                 <Marker interactive={false} icon={mapIcon} position={[pontoHistorico.latitude, pontoHistorico.longitude]} />

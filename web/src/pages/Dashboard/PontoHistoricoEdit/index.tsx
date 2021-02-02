@@ -117,22 +117,23 @@ function PontoHistoricoConfirm() {
     }
 
     return(
-        <div id="page-create-pontoHistorico">
+        <div id="page-create-PontoHistorico">
             <AsideAdmin />
 
             <main>
 
-                <form onSubmit={handleEditpontoHistorico} className="pontoHistorico-details">
+                <form onSubmit={handleEditpontoHistorico} className="PontoHistorico-details">
                     <h2>Dados</h2>
 
                     <hr />
                         
                     <div className="map-container">
                         <MapContainer
-                            center={[latitude, longitude]}
+                            center={[-22.9006421,-47.0972342]}
                             zoom={16}   
                             style={{width: '100%', height: 200}}
                         >
+                            <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                             <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
                       
                             <MinimapBounds />
