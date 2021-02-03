@@ -8,6 +8,7 @@ import cors from 'cors'
 import './database/connection'
 
 const app = express();
+const port = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));  
@@ -16,6 +17,6 @@ app.use(routes)
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')))
 app.use(errorHandler)
 
-app.listen(8080, () => {
-  console.log('server runing in port 8080')
+app.listen(port, () => {
+  console.log(`server runing in port ${port}`)
 }) 

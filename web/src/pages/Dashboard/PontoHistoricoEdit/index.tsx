@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useEffect, useState } from 'react'
+import React, {ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 import { MapContainer, Marker, TileLayer, useMapEvent} from 'react-leaflet'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -36,8 +36,8 @@ function PontoHistoricoConfirm() {
     const [latitude, setLatitude] = useState<number | null>()
     const [longitude, setLongitude] = useState<number | null>()
 
-    // const [images, setImages] = useState<File[]>([])
-    const [previewImages, setPreviewImages] = useState<imageProps[]>([]);
+     const [images, setImages] = useState<File[]>([])
+     const [previewImages, setPreviewImages] = useState<imageProps[]>([]);
 
     useEffect( () => {
         dispatch(getPontoHistorico(id))
@@ -54,31 +54,37 @@ function PontoHistoricoConfirm() {
             setLongitude(pontoHistorico.longitude)
             setPreviewImages(pontoHistorico.images)
 
+            
+
         }
     },[pontoHistorico])
 
+    //remove imagens
     function removeImageFromPreviewImages(id: number) {
         setPreviewImages(
             previewImages.filter( image => image.id !== id)
         )
     }
-
+/*
     // todo, update images
-    // function handleSelectImages(event: ChangeEvent<HTMLInputElement>) {
-    //     if(!event.target.files) {
-    //         return;
-    //     }
-    //     const selectedImages = Array.from(event.target.files)
-    //     setImages(selectedImages)
+     function handleSelectImages(event: ChangeEvent<HTMLInputElement>) {
+        if(!event.target.files) {
+            return;
+        }
+        const selectedImages = Array.from(event.target.files)
+       setImages(selectedImages)
         
-    //     const selectedFilesImagesPreview = selectedImages.map( image => {
-    //         return URL.createObjectURL(image)
-    //     })
+        const selectedFilesImagesPreview = selectedImages.map( image => {
+            return URL.createObjectURL(image)
+         })
 
-    //     // todo, display images preview and upload to update
-    //     setPreviewImages([...previewImages, selectedFilesImagesPreview])
-    // }
-    
+        // todo, display images preview and upload to update
+       setPreviewImages(selectedFilesImagesPreview)
+     }*/
+
+     
+     
+
     function handleEditpontoHistorico(e: FormEvent) {
         e.preventDefault();
     
@@ -91,6 +97,10 @@ function PontoHistoricoConfirm() {
         data.append('instructions', instructions);
         data.append('opening_hours', openingHours);
         data.append('open_on_weekends', String(openOnWeekends));
+
+         images.forEach( image => {
+            data.append('images', image)
+        })
 
         dispatch(updatePontoHistorico(id, data, push))
     }
@@ -187,8 +197,10 @@ function PontoHistoricoConfirm() {
                             type="file" 
                             multiple 
                             id="image[]"
+                            //onChange={handleSelectImages}
+                            />
                             
-                        />
+                        
                     </div>
                         
                     <h2>Visitação</h2>
